@@ -7,7 +7,9 @@
 	</div>
 	<div>
 		<div class="cp_iptxt">
-			<input class="ef" type="text" placeholder="" bind:this={initFocus} bind:value={title}>
+			<label>
+				<input class="ef" type="text" placeholder="" bind:this={initFocus} bind:value={title}>
+			</label>
 			<label>やること</label>
 			<span class="focus_line"><i></i></span>
 		</div>
@@ -18,8 +20,10 @@
 	<ul>
 		{#each filteredTodoList(todoList, condition) as todo (todo.id)}
 			<li>
-				<input type="checkbox" bind:checked={todo.done}>
-				{todo.title}
+				<label>
+					<input type="checkbox" bind:checked={todo.done} onchange={localStorage.setItem("ToDo", JSON.stringify(todoList))}>
+					{todo.title}
+				</label>
 			</li>
 		{/each}
 	</ul>
@@ -97,16 +101,11 @@
         display: inline-block;
         background-color : #f4f4f4;
         background-image: linear-gradient(top , #C2C2C2, #F0F0F0);
-        box-shadow: 0px 3px 1px #EEEEEE, 0px 3px 1px #B7B7B7 inset;
+        box-shadow: 0 3px 1px #EEEEEE, 0 3px 1px #B7B7B7 inset;
         padding: 20px;
     }
 
-    .button-container {
-        padding: 1em 0;
-        text-align: right;
-    }
-
-    .filter {
+   .filter {
         background-color: rgb(62, 68, 163);
         border: none;
         border-radius: 3px;
@@ -116,119 +115,4 @@
         cursor: pointer;
     }
 
-    .save:disabled {
-        opacity: 0.3;
-        cursor: auto;
-    }
-
-    .cp_iptxt {
-        position: relative;
-        width: 80%;
-        margin: 40px 3%;
-    }
-
-    .cp_iptxt input[type='text'] {
-        font: 15px/24px sans-serif;
-        box-sizing: border-box;
-        width: 100%;
-        letter-spacing: 1px;
-        padding-left: 4em;
-    }
-
-    .cp_iptxt input[type='text']:focus {
-        outline: none;
-    }
-
-    .ef {
-        padding: 7px 14px;
-        transition: 0.4s;
-        border: 1px solid #1b2538;
-        background: transparent;
-    }
-
-    .ef ~ .focus_line:before,
-    .ef ~ .focus_line:after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 0;
-        height: 2px;
-        content: '';
-        transition: 0.2s;
-        transition-delay: 0.2s;
-        background-color: #da3c41;
-    }
-
-    .ef ~ .focus_line:after {
-        top: auto;
-        right: auto;
-        bottom: 0;
-        left: 0;
-        transition-delay: 0.6s;
-    }
-
-    .ef ~ .focus_line i:before,
-    .ef ~ .focus_line i:after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 2px;
-        height: 0;
-        content: '';
-        transition: 0.2s;
-        background-color: #da3c41;
-    }
-
-    .ef ~ .focus_line i:after {
-        top: auto;
-        right: 0;
-        bottom: 0;
-        left: auto;
-        transition-delay: 0.4s;
-    }
-
-    .ef:focus ~ .focus_line:before,
-    .ef:focus ~ .focus_line:after,
-    .cp_iptxt.ef ~ .focus_line:before,
-    .cp_iptxt.ef ~ .focus_line:after {
-        width: 100%;
-        transition: 0.2s;
-        transition-delay: 0.6s;
-    }
-
-    .ef:focus ~ .focus_line:after,
-    .cp_iptxt.ef ~ .focus_line:after {
-        transition-delay: 0.2s;
-    }
-
-    .ef:focus ~ .focus_line i:before,
-    .ef:focus ~ .focus_line i:after,
-    .cp_iptxt.ef ~ .focus_line i:before,
-    .cp_iptxt.ef ~ .focus_line i:after {
-        height: 100%;
-        transition: 0.2s;
-    }
-
-    .ef:focus ~ .focus_line i:after,
-    .cp_iptxt.ef ~ .focus_line i:after {
-        transition-delay: 0.4s;
-    }
-
-    .ef ~ label {
-        position: absolute;
-        z-index: -1;
-        top: 10px;
-        left: 14px;
-        width: 100%;
-        transition: 0.3s;
-        letter-spacing: 0.5px;
-        color: #aaaaaa;
-    }
-
-    .ef:focus ~ label, .cp_iptxt.ef ~ label {
-        top: -18px;
-        left: 0;
-        transition: 0.3s;
-        color: #da3c41;
-    }
 </style>
