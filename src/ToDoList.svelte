@@ -75,15 +75,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 <style>
 
-   :global(body) {
-        background-color: #ababab;
-        font-size:100%;
-	    font-family: 'Playfair Display', serif;
-        line-height:1.5;
-	    font-weight: 900;
-	    color:#333333;
-    }
-
     .add {
         display: block;
         background-color: rgb(75, 168, 51);
