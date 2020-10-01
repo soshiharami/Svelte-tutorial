@@ -28,56 +28,53 @@
 </body>
 
 <script>
-    import {onMount} from "svelte";
+	import {onMount} from "svelte";
 
-    let condition = null;
+	let condition = null;
 
-    let todoList = [
-        {id: 0, done: false, title: 'レストランを予約する'},
-        {id: 1, done: false, title: 'サプライズ用の指輪を買う'},
-        {id: 2, done: false, title: 'フラッシュモブダンスを練習する'},
-        {id: 3, done: false, title: "test"}
-    ]
+	let todoList = JSON.parse(localStorage.getItem("ToDo"));
 
-    onMount(() => {
-        init()
-    })
+	onMount(() => {
+		init()
+	})
 
-    let initFocus = null;
+	let initFocus = null;
 
-    function init() {
-        title = ''
-        initFocus.focus()
-    }
+	function init() {
+		title = ''
+		initFocus.focus()
+		localStorage.setItem("ToDo", JSON.stringify(todoList))
+	}
 
     let title = ''
 
-    function add() {
-        if (title === '') return;
-        todoList = [...todoList,
-            {
-                id: todoList.length,
-                done: false,
-                title
-            }]
-        console.log(todoList)
-        init()
-    }
+	function add(key) {
+		if (title === '') return;
+		todoList = [...todoList,
+			{
+				id: todoList.length,
+				done: false,
+				title
+			}]
+		init()
+		console.log(JSON.parse(localStorage.getItem("ToDo")) || "null")
+	}
 
     $: filteredTodoList = (todoList, condition) => {
         return condition === null ? todoList : todoList.filter(t => t.done === condition)
     }
 
 </script>
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 <style>
 
     :global(body) {
         background-color: #ababab;
-        font-size:95%;
-        font-family: "ＭＳ ゴシック",sans-serif;
+        font-size:100%;
+	    font-family: 'Playfair Display', serif;
         line-height:1.5;
-        color:#333333;
+	    font-weight: 900;
+	    color:#333333;
     }
 
     .add {
