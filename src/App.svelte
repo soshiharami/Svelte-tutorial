@@ -8,10 +8,12 @@
     import Router from 'svelte-spa-router'
     import ToDoList from './ToDoList.svelte'
 	import home from './home.svelte'
+    import Addition from './Addition.svelte'
 
     const routes = {
         '/': home,
         '/ToDoList': ToDoList,
+	    '/Addition': Addition,
     }
 </script>
 <style>
