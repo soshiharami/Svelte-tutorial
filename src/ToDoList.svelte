@@ -23,14 +23,15 @@
 			</li>
 		{/each}
 	</ul>
-	{todoList.length}
+	<h4> 合計: {todoList.length}
+		未完了: {todoList.filter(t => t.done === false).length}
+		完了済み: {todoList.filter(t => t.done === true).length}
+	</h4>
 </div>
 </body>
 
 <script>
 	import {onMount} from "svelte";
-
-	let condition = null;
 
 	let todoList = JSON.parse(localStorage.getItem("ToDo"));
 
@@ -46,9 +47,9 @@
 		localStorage.setItem("ToDo", JSON.stringify(todoList))
 	}
 
-    let title = ''
+	let title = ''
 
-	function add(key) {
+	function add() {
 		if (title === '') return;
 		todoList = [...todoList,
 			{
@@ -60,15 +61,17 @@
 		console.log(JSON.parse(localStorage.getItem("ToDo")) || "null")
 	}
 
-    $: filteredTodoList = (todoList, condition) => {
-        return condition === null ? todoList : todoList.filter(t => t.done === condition)
-    }
+	let condition = false;
+
+	function filteredTodoList(todoList, condition) {
+		return condition === null ? todoList : todoList.filter(t => t.done === condition)
+	}
 
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 <style>
 
-    :global(body) {
+   :global(body) {
         background-color: #ababab;
         font-size:100%;
 	    font-family: 'Playfair Display', serif;
@@ -90,13 +93,12 @@
         cursor: pointer;
     }
 
-    .main {
+   .main {
         display: inline-block;
         background-color : #f4f4f4;
         background-image: linear-gradient(top , #C2C2C2, #F0F0F0);
         box-shadow: 0px 3px 1px #EEEEEE, 0px 3px 1px #B7B7B7 inset;
         padding: 20px;
-
     }
 
     .button-container {
@@ -224,7 +226,6 @@
     }
 
     .ef:focus ~ label, .cp_iptxt.ef ~ label {
-        font-size: px;
         top: -18px;
         left: 0;
         transition: 0.3s;
