@@ -9,11 +9,13 @@
     import ToDoList from './ToDoList.svelte'
 	import home from './home.svelte'
     import Addition from './Addition.svelte'
+    import snake from './snake.svelte'
 
     const routes = {
         '/': home,
         '/ToDoList': ToDoList,
 	    '/Addition': Addition,
+	    '/snake': snake
     }
 </script>
 <style>
