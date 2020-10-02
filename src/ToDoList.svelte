@@ -34,6 +34,9 @@
 	import GomiSvg from "../img/gomi.svg"
 
 	let todoList = JSON.parse(localStorage.getItem("ToDo"));
+	if (todoList == null){
+		todoList = []
+	}
 
 	function gomi(todo){
 		todo.delete = true;
