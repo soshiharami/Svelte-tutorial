@@ -15,19 +15,24 @@
 		<ul>
 			{#each filteredTodoList(todoList, condition) as todo (todo.id)}
 				<li>
+
 					<input type="checkbox" bind:checked={todo.done}
 					       onchange={localStorage.setItem("ToDo", JSON.stringify(todoList))}>
+
 					{todo.title}
+
 					<button on:click={() => gomi(todo)}>
 						<img src={GomiSvg}
 						     width="50"
 						     height="20"
 						     alt="gomi">
 					</button>
+
 				</li>
 			{/each}
 		</ul>
-		<h4> 合計: {todoList.filter(t => t.delete === false).length}
+		<h4>
+			合計: {todoList.filter(t => t.delete === false).length}
 			未完了: {todoList.filter(t => t.delete === false).filter(t => t.done === false).length}
 			完了済み: {todoList.filter(t => t.delete === false).filter(t => t.done === true).length}
 		</h4>
@@ -76,7 +81,7 @@
 		console.log(JSON.parse(localStorage.getItem("ToDo")) || "null")
 	}
 
-	let condition = false;
+	let condition = null;
 
 	function filteredTodoList(todoList, condition) {
 		return condition === null ? todoList.filter(t => t.delete === false) : todoList.filter(r => r.delete === false).filter(t => t.done === condition)
