@@ -13,18 +13,23 @@
 	</div>
 	<div>
 		<ul>
-			{#each filteredTodoList(todoList.filter(t => t.delete === false), condition) as todo (todo.id)}
+			{#each filteredTodoList(todoList, condition) as todo (todo.id)}
 				<li>
 					<input type="checkbox" bind:checked={todo.done}
 					       onchange={localStorage.setItem("ToDo", JSON.stringify(todoList))}>
 					{todo.title}
-					<a on:click={todo.delete = true}><img src={GomiSvg} width="50" height="20" alt="gomi"></a>
+					<button on:click={() => gomi(todo)}>
+						<img src={GomiSvg}
+						     width="50"
+						     height="20"
+						     alt="gomi">
+					</button>
 				</li>
 			{/each}
 		</ul>
-		<h4> 合計: {todoList.length}
-			未完了: {todoList.filter(t => t.done === false).length}
-			完了済み: {todoList.filter(t => t.done === true).length}
+		<h4> 合計: {todoList.filter(t => t.delete === false).length}
+			未完了: {todoList.filter(t => t.delete === false).filter(t => t.done === false).length}
+			完了済み: {todoList.filter(t => t.delete === false).filter(t => t.done === true).length}
 		</h4>
 	</div>
 </body>
@@ -40,6 +45,8 @@
 
 	function gomi(todo){
 		todo.delete = true;
+		todoList = todoList
+		init()
 	}
 
 	onMount(() => {
@@ -72,7 +79,7 @@
 	let condition = false;
 
 	function filteredTodoList(todoList, condition) {
-		return condition === null ? todoList : todoList.filter(t => t.done === condition)
+		return condition === null ? todoList.filter(t => t.delete === false) : todoList.filter(r => r.delete === false).filter(t => t.done === condition)
 	}
 
 </script>
@@ -119,7 +126,7 @@
 	.button {
 		border-radius: 10px;
 		color: rgba(30, 22, 54, 0.6);
-		box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+		box-shadow: rgba(30, 22, 54, 0.4) 0 0 0 2px inset;
 		-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 		-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 		-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -133,7 +140,7 @@
 
 	.button:hover {
 		color: rgba(255, 255, 255, 0.85);
-		box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+		box-shadow: rgba(30, 22, 54, 0.7) 0 0 0 40px inset;
 	}
 
 	*::-webkit-input-placeholder {
