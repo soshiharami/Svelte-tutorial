@@ -10,12 +10,16 @@
 	import home from './home.svelte'
     import Addition from './Addition.svelte'
     import snake from './snake.svelte'
+    import Image from './ImageUploader.svelte'
+    import blog from './blog/index.svelte'
 
     const routes = {
         '/': home,
         '/ToDoList': ToDoList,
 	    '/Addition': Addition,
-	    '/snake': snake
+	    '/snake': snake,
+	    '/Image': Image,
+	    '/blog': blog
     }
 </script>
 <style>
